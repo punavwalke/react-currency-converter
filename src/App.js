@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import CurrencyRow from "./CurrencyRow";
-require('dotenv').config()
-const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
-const REACT_APP_ACCESS_KEY=process.env.REACT_APP_ACCESS_KEY
+//require('dotenv').config()
+//const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+//const REACT_APP_ACCESS_KEY=process.env.REACT_APP_ACCESS_KEY
 
 function App() {
   const [currencyOptions, setCurrencyOptions] = useState([]);
