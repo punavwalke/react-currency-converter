@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import CurrencyRow from "./CurrencyRow";
 require('dotenv').config()
-const BASE_URL = `http://api.exchangeratesapi.io/v1/latest`;
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 const REACT_APP_ACCESS_KEY=process.env.REACT_APP_ACCESS_KEY
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
     fromAmount = (amount / exchangeRate).toFixed(4);
   }
   useEffect(() => {
-    fetch(`${BASE_URL}?access_key=${REACT_APP_ACCESS_KEY}`)
+    fetch(`${REACT_APP_BASE_URL}?access_key=${REACT_APP_ACCESS_KEY}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -37,7 +37,7 @@ function App() {
   }, []);
   useEffect(() => {
     if (fromCurrency && toCurrency) {
-      fetch(`${BASE_URL}?access_key=${REACT_APP_ACCESS_KEY}&base=${fromCurrency}&symbols=${toCurrency}`)
+      fetch(`${REACT_APP_BASE_URL}?access_key=${REACT_APP_ACCESS_KEY}&base=${fromCurrency}&symbols=${toCurrency}`)
         .then((res) => res.json())
         .then((data) => setExchangeRate(data.rates[toCurrency]));
         
