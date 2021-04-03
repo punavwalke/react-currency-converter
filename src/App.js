@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import CurrencyRow from "./CurrencyRow";
-
-const BASE_URL = "https://api.exchangeratesapi.io/latest";
+require('dotenv').config()
+const BASE_URL = `http://api.exchangeratesapi.io/v1/latest`;
+const access_key=process.env.REACT_APP_ACCESS_KEY
 
 function App() {
   const [currencyOptions, setCurrencyOptions] = useState([]);
   const [fromCurrency, setFromCurrency] = useState("");
-  const [toCurrency, setToCurrency] = useState(0);
+  const [toCurrency, setToCurrency] = useState("");
   const [amount, setAmount] = useState(1);
   const [exchangeRate, setExchangeRate] = useState(0);
   const [amountInFromCurrency, setAmountInFromCurrrency] = useState(true);
@@ -22,7 +23,7 @@ function App() {
     fromAmount = (amount / exchangeRate).toFixed(4);
   }
   useEffect(() => {
-    fetch(BASE_URL)
+    fetch(`${BASE_URL}?access_key=${access_key}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -36,9 +37,10 @@ function App() {
   }, []);
   useEffect(() => {
     if (fromCurrency && toCurrency) {
-      fetch(`${BASE_URL}?base=${fromCurrency}&symbols=${toCurrency}`)
+      fetch(`${BASE_URL}?access_key=${access_key}&base=${fromCurrency}&symbols=${toCurrency}`)
         .then((res) => res.json())
         .then((data) => setExchangeRate(data.rates[toCurrency]));
+        
     }
   }, [fromCurrency, toCurrency]);
   const handleFromAmountChange = (e) => {
@@ -49,6 +51,9 @@ function App() {
     setAmount(e.target.value);
     setAmountInFromCurrrency(false);
   };
+  const handleToCurrencyChange=(e)=>{
+    setToCurrency(e.target.value);
+}
   return (
     <>
       <div className="container">
@@ -64,9 +69,9 @@ function App() {
               <p>As of {date}</p>
               
               <CurrencyRow
-                currencyOptions={currencyOptions}
+                currencyOptions={[fromCurrency]}
                 selectCurrency={fromCurrency}
-                onChangeCurrency={(e) => setFromCurrency(e.target.value)}
+                onChangeCurrency={handleToCurrencyChange}
                 onChangeAmount={handleFromAmountChange}
                 amount={fromAmount}
               />
@@ -74,7 +79,7 @@ function App() {
               <CurrencyRow
                 currencyOptions={currencyOptions}
                 selectCurrency={toCurrency}
-                onChangeCurrency={(e) => setToCurrency(e.target.value)}
+                onChangeCurrency={handleToCurrencyChange}
                 onChangeAmount={handleTOAmountChange}
                 amount={toAmount}
               />

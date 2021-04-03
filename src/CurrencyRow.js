@@ -1,13 +1,7 @@
 import React from "react";
 import "./App.css";
-const CurrencyRow = (props) => {
-  const {
-    currencyOptions,
-    selectCurrency,
-    onChangeCurrency,
-    onChangeAmount,
-    amount,
-  } = props;
+const CurrencyRow = ({currencyOptions, selectCurrency,onChangeCurrency,onChangeAmount,amount}) => {
+ 
   return (
     <div>
       <form className="form-inline m-2 ">
@@ -17,9 +11,9 @@ const CurrencyRow = (props) => {
           value={amount}
           onChange={onChangeAmount}
         />
-        <select value={selectCurrency} onChange={onChangeCurrency} className="form-control form-control-lg mr-2">
-          {currencyOptions.map((option) => (
-            <option key={option} value={option}>
+        <select value={selectCurrency} onChange={onChangeCurrency} className="form-control form-control-lg mr-2 w-2">
+          {currencyOptions.map((option,id) => (
+            <option key={id} value={option}>
               {option}
             </option>
           ))}
