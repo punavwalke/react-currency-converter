@@ -1,3 +1,10 @@
+Currency Converter : An application using which you can convert any currency.
+
+![currencyConverter1](https://user-images.githubusercontent.com/68280225/126990895-15f573bd-43c5-40dc-a036-38e1b6657d95.JPG)
+
+![currencyConverter2](https://user-images.githubusercontent.com/68280225/126990750-3bf91ca2-5841-47b9-afba-861776a97ea0.JPG)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
